@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 //importing authRoutes
 import authRoutes from "./routes/authRoutes.js";
+import { connect } from "mongoose";
+import connectToMongoDB from "./db/connectToMongoDB.js";
 
 const app = express();
 
@@ -17,4 +19,8 @@ app.get("/", (req,res) =>{
 //using middleware to access authRoutes file path
 app.use("/api/auth", authRoutes)
 
-app.listen(5000 , ()=> console.log(`Server is running on ${PORT}`));
+app.listen(PORT , ()=>{
+    // connected mongodb 
+    connectToMongoDB();
+    console.log(`Server is running on ${PORT}`)
+});
